@@ -1,24 +1,21 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Board from './components/Board'
+import BottomBar from './components/BottomBar'
+import './style.css';
+
+const boardChords = [
+  ['Eb', 'G', 'Bb'], // Eb
+  ['C', 'Eb', 'G', 'Bb'], // Cm7
+  ['G', 'Bb', 'D'], // Gm
+  ['F', 'Ab', 'C'], // Fm
+  ['C', 'Eb', 'G'], // Cm
+];
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <Board chords={boardChords} />
+      <BottomBar />
     </div>
   );
 }
