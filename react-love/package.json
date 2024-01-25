@@ -1,6 +1,7 @@
 {
   "name": "react-love",
   "version": "0.1.0",
+  "type": "module",
   "homepage": "https://talkallday.github.io/react-love",
   "private": true,
   "dependencies": {
