@@ -2,6 +2,10 @@ import play from './utils/play.js'
 import State from './State.js';
 import * as Tone from 'tone';
 
+const updatePlayStatus = () => {
+  document.getElementById('play-status').innerHTML = `Loop ` + State.currentLoop + ` of ` + State.loopTimes;
+}
+
 const setTimes = (numTimes) => {
   State.loopTimes = numTimes;
 }
@@ -33,6 +37,7 @@ export const loopPlay = async () => {
   State.stopped = false;
   for (let i = 0; i < State.loopTimes; i++) {
     State.currentLoop += 1;
+    updatePlayStatus();
     await play();
     if (State.stopped) { break; }
   }

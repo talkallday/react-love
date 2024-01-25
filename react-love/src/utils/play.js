@@ -56,7 +56,6 @@ const setBasePlayColor = () => {
 }
 
 const play = async () => {
-  console.log("playing!!");
   if (State.playing) return;
   State.playing = true;
   const board = document.getElementById('sound-board');

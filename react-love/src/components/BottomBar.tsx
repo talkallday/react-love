@@ -1,5 +1,6 @@
 import {
-    toggleSynth
+    toggleSynth,
+    loopPlay
  } from "../listeners.js";
 import ChordStatus from './ChordStatus';
 import LoopStatus from './LoopStatus';
@@ -13,7 +14,7 @@ const BottomBar = () => {
   const [loopTimes, setLoopTimes] = useState(4);
   return (
     <div className="chord">
-      <PlayButton playFunction={play}/>
+      <PlayButton playFunction={loopPlay}/>
       <TimesForm defaultLoopTimes={loopTimes} setLoopTimesCallback={setLoopTimes} />
       <LoopStatus loopTimes={loopTimes} />
       <ChordStatus />
