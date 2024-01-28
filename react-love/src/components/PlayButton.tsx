@@ -9,7 +9,7 @@ import { ChordInfo, getAllNotes } from './Chord';
 const getRandomNotes = (chordNotes: string[]) => {
   var notes = getAllNotes(chordNotes);
   var randomChordNotes = [];
-  var keyIndices = Array(notes.length).fill().map((x,i)=>i);
+  var keyIndices = notes.map((x,i)=>i);
   for (let i = 0; i < 4; i++) {
     var randomKeyIndex = Math.floor(Math.random() * keyIndices.length);
     var keyIndex = keyIndices[randomKeyIndex];
@@ -24,7 +24,7 @@ type PlayButtonProps = {
   chords: ChordInfo[],
   setLoopCallback: Function,
   playingChordCallback: Function,
-  synth: Tone.PolySynth,
+  synth: Tone.PolySynth | null,
   disabled: boolean,
   enableCallback: Function,
   totalLoops: number
@@ -40,7 +40,7 @@ const PlayButton = ({
   totalLoops}: PlayButtonProps) => {
   const [playing, setPlaying] = useState(false);
 
-  const playChord = (chord: ChordInfo, timeToPlay, loop, index) => {
+  const playChord = (chord: ChordInfo | null, timeToPlay: number, loop: number, index: number | null) => {
     if (chord === null) {
       playingChordCallback(null);
       setPlaying(false);
@@ -49,7 +49,9 @@ const PlayButton = ({
     }
     playingChordCallback(index);
     setLoopCallback(loop);
-    synth.triggerAttackRelease(getRandomNotes(chord.notes), 0.7, timeToPlay);
+    if (synth !== null) {
+      synth.triggerAttackRelease(getRandomNotes(chord.notes), 0.7, timeToPlay);
+    }
   }
 
   const playLoop = () => {

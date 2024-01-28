@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import Board from './components/Board';
 import BottomBar from './components/BottomBar';
+import { ChordInfo } from './components/Chord'
 import * as Tone from 'tone';
 import './style.css';
 
@@ -30,7 +31,7 @@ const boardChords = [
 
 function App() {
   const [volume, setVolume] = useState(0);
-  const [synth, setSynth] = useState(null);
+  const [synth, setSynth] = useState<Tone.PolySynth<Tone.Synth<Tone.SynthOptions>> | null>(null);
   const [disabled, setDisabled] = useState(true);
   const [playingChordIndex, setPlayingChordIndex] = useState(null);
 
@@ -50,14 +51,14 @@ function App() {
     setDisabled(false);
   }
 
-  const convertRange = (value, r1, r2) => {
+  const convertRange = (value: number, r1: number[], r2: number[]) => {
     if (value === 0) {
       return -Infinity;
     }
     return (((value - r1[0]) * (r2[1] - r2[0])) / (r1[1] - r1[0])) + r2[0];
   }
 
-  const setOnVolume = (desiredVolume) => {
+  const setOnVolume = (desiredVolume: number) => {
     console.log(desiredVolume);
     var actualVolume = convertRange(desiredVolume, [0, 10], [-20, 0]);
     setVolume(desiredVolume);

@@ -3,15 +3,13 @@ import playNoteKey from '../utils/playNoteKey'
 
 type NoteProps = {
   note: string,
-  isPlaying: boolean,
-  chordOrd: number
+  isPlaying: boolean
 }
 
-const Note = ({note, isPlaying, chordOrd}: NoteProps) => {
+const Note = ({note, isPlaying}: NoteProps) => {
 
   return (
   <div
-    key={chordOrd}
     className={"cell key "  + (isPlaying ? "playing" : "")}
     style={{backgroundColor: isPlaying ? "yellow" : "blue"}}
   >

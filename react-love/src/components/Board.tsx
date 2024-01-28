@@ -1,8 +1,8 @@
 import { Chord, ChordInfo } from './Chord';
 
 type BoardProps = {
-  chords: ChordInfo,
-  playingChord: number
+  chords: ChordInfo[],
+  playingChord: number | null
 }
 
 const Board = ({chords, playingChord}: BoardProps) => {

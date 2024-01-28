@@ -1,5 +1,5 @@
 type ChordStatusProps = {
-  playingChord: number
+  playingChord: number | null
 }
 const ChordStatus = ({playingChord}: ChordStatusProps) => {
   return (

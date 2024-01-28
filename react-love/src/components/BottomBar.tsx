@@ -6,16 +6,15 @@ import LoopStatus from './LoopStatus';
 import PlayButton from './PlayButton';
 import TimesForm from './TimesForm';
 import VolumeSlider from './VolumeSlider';
-import MuteButton from './MuteButton';
 import { ChordInfo } from './Chord'
 
 type BottomBarProps = {
   chords: ChordInfo[],
   volumeCallback: Function,
   playingChordCallback: Function,
-  playingChord: number,
-  synth: Tone.PolySynth,
-  maxVolume: number,
+  playingChord: number | null,
+  synth: Tone.PolySynth | null,
+  volume: number,
   disabled: boolean,
   enableCallback: Function
 }
