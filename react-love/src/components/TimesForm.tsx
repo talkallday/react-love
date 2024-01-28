@@ -2,12 +2,11 @@ import { useState, ChangeEvent } from 'react';
 import Option from './Option';
 
 type TimeFormProps = {
-  defaultLoopTimes: number,
+  loopTimes: number,
   setLoopTimesCallback: Function
 }
 
-const TimesForm = ({defaultLoopTimes, setLoopTimesCallback}: TimeFormProps) => {
-  const [loopTimes, setLoopTimes] = useState(defaultLoopTimes)
+const TimesForm = ({loopTimes, setLoopTimesCallback}: TimeFormProps) => {
   const timeOptions = [];
   for (let v = 0; v < 16; v++) {
     var optionValue = v + 1;
@@ -17,8 +16,7 @@ const TimesForm = ({defaultLoopTimes, setLoopTimesCallback}: TimeFormProps) => {
   const submitTimes = (event: ChangeEvent<HTMLSelectElement>) => {
     event.preventDefault();
     const timesInput = document.getElementById('loops-select') as HTMLInputElement;
-    const newLoopTimes = Number(timesInput?.value) ?? defaultLoopTimes;
-    setLoopTimes(newLoopTimes);
+    const newLoopTimes = Number(timesInput?.value) ?? loopTimes;
     setLoopTimesCallback(newLoopTimes)
   }
 

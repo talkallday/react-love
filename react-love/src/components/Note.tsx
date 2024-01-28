@@ -1,21 +1,20 @@
 import { useState } from 'react';
 import playNoteKey from '../utils/playNoteKey'
 
-const Note = (note: string) => {
-  const [isPlaying, setIsPlaying] = useState(false);
+type NoteProps = {
+  note: string,
+  isPlaying: boolean,
+  chordOrd: number
+}
 
-  const handleClick = () => {
-      setIsPlaying(true);
-      playNoteKey(note);
-      setTimeout(() => {
-          setIsPlaying(false);
-        },
-        (1 / 4) * (2.5 * 1000)
-      )
-  }
+const Note = ({note, isPlaying, chordOrd}: NoteProps) => {
 
   return (
-  <div className={"cell key "  + (isPlaying ? "playing" : "")} onClick={handleClick}>
+  <div
+    key={chordOrd}
+    className={"cell key "  + (isPlaying ? "playing" : "")}
+    style={{backgroundColor: isPlaying ? "yellow" : "blue"}}
+  >
     {note}
   </div>
   );

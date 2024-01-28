@@ -1,10 +1,11 @@
 type StatusProps = {
-  loopTimes: number
+  loopTimes: number,
+  loop: number
 }
 
-const LoopStatus = ({loopTimes}: StatusProps) => {
+const LoopStatus = ({loopTimes, loop}: StatusProps) => {
   return (
-    <div className="cell" id="play-status">Loop 0 of {loopTimes}</div>
+    <div className="cell" id="play-status">Loop {loop} of {loopTimes}</div>
   )
 }
 

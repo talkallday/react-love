@@ -1,6 +1,7 @@
 import playNoteKey from './playNoteKey.js';
 import getNoteName from './getNoteName.js';
 import State from '../State.js';
+import { synth } from '../App'
 
 const colorNames = {
   'rgb(255, 0, 0)': 'red',
@@ -35,12 +36,12 @@ const playRandomNotes = async (chord) => {
     const playColor = document.getElementById('play-color');
     playColor.style.backgroundColor = currentColor;
     playColor.innerHTML = `PLAY: ` + currentColor.toUpperCase();
-    if (State.synth) {
+    if (synth) {
       let randomNotes = [];
       randomChordKeys.forEach(key => {
         randomNotes.push(getNoteName(key));
       });
-      State.synth.triggerAttackRelease(randomNotes, "8n");
+      synth.triggerAttackRelease(randomNotes, "8n");
     } else {
       randomChordKeys.forEach(keyElement => playNoteKey(keyElement))
     }
@@ -65,14 +66,14 @@ const play = async () => {
   const thirdChord = chords[2];
   const fourthChord = chords[3];
   const fifthChord = chords[4];
-  !State.stopped ? await playRandomNotes(firstChord) : setBasePlayColor();
-  !State.stopped ? await playRandomNotes(secondChord) : setBasePlayColor();
-  !State.stopped ? await playRandomNotes(thirdChord) : setBasePlayColor();
-  !State.stopped ? await playRandomNotes(thirdChord) : setBasePlayColor();
-  !State.stopped ? await playRandomNotes(fourthChord) : setBasePlayColor();
-  !State.stopped ? await playRandomNotes(fourthChord) : setBasePlayColor();
-  !State.stopped ? await playRandomNotes(fifthChord) : setBasePlayColor();
-  !State.stopped ? await playRandomNotes(fifthChord) : setBasePlayColor();
+  !State.stopped ? await playRandomNotes(firstChord, synth) : setBasePlayColor();
+  !State.stopped ? await playRandomNotes(secondChord, synth) : setBasePlayColor();
+  !State.stopped ? await playRandomNotes(thirdChord, synth) : setBasePlayColor();
+  !State.stopped ? await playRandomNotes(thirdChord, synth) : setBasePlayColor();
+  !State.stopped ? await playRandomNotes(fourthChord, synth) : setBasePlayColor();
+  !State.stopped ? await playRandomNotes(fourthChord, synth) : setBasePlayColor();
+  !State.stopped ? await playRandomNotes(fifthChord, synth) : setBasePlayColor();
+  !State.stopped ? await playRandomNotes(fifthChord, synth) : setBasePlayColor();
   State.playing = false;
 }
 

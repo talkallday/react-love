@@ -1,6 +1,13 @@
-const ChordStatus = () => {
+type ChordStatusProps = {
+  playingChord: number
+}
+const ChordStatus = ({playingChord}: ChordStatusProps) => {
   return (
-    <div className="cell" id="play-color">Not Playing</div>
+    <div
+      className="cell"
+      id="play-color">
+      { playingChord !== null ? "Chord " + playingChord : "Not playing" }
+    </div>
   )
 }
 

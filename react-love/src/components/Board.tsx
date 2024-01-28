@@ -1,24 +1,14 @@
-import Chord from './Chord';
-
-const boardChords = [
-  ['Eb', 'G', 'Bb'], // Eb
-  ['C', 'Eb', 'G', 'Bb'], // Cm7
-  ['G', 'Bb', 'D'], // Gm
-  ['F', 'Ab', 'C'], // Fm
-  ['C', 'Eb', 'G'], // Cm
-];
+import { Chord, ChordInfo } from './Chord';
 
 type BoardProps = {
-  chords: string[][]
+  chords: ChordInfo,
+  playingChord: number
 }
 
-const Board = ({chords}: BoardProps) => {
-  if ( chords === null) {
-    chords = boardChords;
-  }
+const Board = ({chords, playingChord}: BoardProps) => {
   return (
     <div className="board" id="sound-board">
-      { chords.map((chord) => Chord(chord)) }
+      {chords.map((chord, index) => <Chord key={index} chord={chord} index={index} playingChordIndex={playingChord} />)}
     </div>
   )
 }

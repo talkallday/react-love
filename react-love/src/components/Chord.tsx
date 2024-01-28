@@ -1,7 +1,7 @@
 import Note from './Note';
 import noteValues from '../utils/NoteFrequencies.js';
 
-const getAllNotes = (chord: string[]) => {
+export const getAllNotes = (chord) => {
   const notes: string[] = [];
   [...noteValues.keys()].forEach((noteName) => {
     let note = noteName.slice(0, -1);
@@ -10,14 +10,25 @@ const getAllNotes = (chord: string[]) => {
   return notes;
 }
 
-const Chord = (chord: string[]) =>
+export type ChordInfo = {
+  notes: string[],
+  duration: number
+}
+
+type ChordProps = {
+  chord: ChordInfo,
+  playingChordIndex: number,
+  index: number
+}
+
+export const Chord = ({chord, playingChordIndex, index}: ChordProps) =>
 {
-  const chordNotes = getAllNotes(chord);
+  const chordNotes = getAllNotes(chord.notes);
   return (
     <div className="chord">
-      {chordNotes.map((note) => Note(note))}
+      <div key={index} className="index">{index + 1}</div>
+      {chordNotes.map((note) => <Note isPlaying={index === playingChordIndex} key={note} note={note}/>)}
+      <div key={"" + index + chord.duration} className="index">{chord.duration}</div>
     </div>
   )
 }
-
-export default Chord;
