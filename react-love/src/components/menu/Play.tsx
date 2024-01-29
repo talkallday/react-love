@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import * as Tone from 'tone';
 
-import getNoteName from '../utils/getNoteName';
-import playNoteKey from '../utils/playNoteKey';
-import { ChordInfo, getAllNotes } from './Chord';
+import { ChordInfo, getAllNotes } from '../board/Chord';
 
 
 const getRandomNotes = (chordNotes: string[]) => {
@@ -20,7 +18,7 @@ const getRandomNotes = (chordNotes: string[]) => {
 }
 
 
-type PlayButtonProps = {
+type PlayProps = {
   chords: ChordInfo[],
   setLoopCallback: Function,
   playingChordCallback: Function,
@@ -30,14 +28,14 @@ type PlayButtonProps = {
   totalLoops: number
 }
 
-const PlayButton = ({
+const Play = ({
   chords,
   setLoopCallback,
   playingChordCallback,
   synth,
   disabled,
   enableCallback,
-  totalLoops}: PlayButtonProps) => {
+  totalLoops}: PlayProps) => {
   const [playing, setPlaying] = useState(false);
 
   const playChord = (chord: ChordInfo | null, timeToPlay: number, loop: number, index: number | null) => {
@@ -50,7 +48,7 @@ const PlayButton = ({
     playingChordCallback(index);
     setLoopCallback(loop);
     if (synth !== null) {
-      synth.triggerAttackRelease(getRandomNotes(chord.notes), 0.7, timeToPlay);
+      synth.triggerAttackRelease(getRandomNotes(chord.notes), '4n', timeToPlay);
     }
   }
 
@@ -62,12 +60,14 @@ const PlayButton = ({
       const loop = j + 1;
       chords.forEach((chord, index) => {
         scheduledTime += chord.duration;
-        for (var i = 0; i < Math.floor(chord.duration / 0.7); i++) {
+        for (var i = 0; i < chord.duration; i++) {
           while (addressedTime <= scheduledTime) {
+            const measure = Math.floor(addressedTime / 4);
+            const beat = (addressedTime) % 4;
             Tone.Transport.scheduleOnce(time => {
               playChord(chord, time, loop, index)
-            }, addressedTime);
-            addressedTime += 0.7;
+            }, measure + ":" + beat + ":0");
+            addressedTime++;
           }
         }
       });
@@ -106,4 +106,4 @@ const PlayButton = ({
   )
 }
 
-export default PlayButton;
+export default Play;

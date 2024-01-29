@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import playNoteKey from '../utils/playNoteKey'
 
 type NoteProps = {
   note: string,
