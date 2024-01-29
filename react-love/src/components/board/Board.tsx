@@ -1,14 +1,18 @@
 import { Chord, ChordInfo } from './Chord';
 
 type BoardProps = {
-  chords: ChordInfo[],
+  chords: ChordInfo[] | null,
   playingChord: number | null
 }
 
 const Board = ({chords, playingChord}: BoardProps) => {
   return (
     <div className="board" id="sound-board">
-      {chords.map((chord, index) => <Chord key={index} chord={chord} index={index} playingChordIndex={playingChord} />)}
+      {
+        chords
+        ? chords.map((chord, index) => <Chord key={index} chord={chord} index={index} playingChordIndex={playingChord} />)
+        : "no chords available"
+      }
     </div>
   )
 }

@@ -7,10 +7,10 @@ import Play from './Play';
 import Loops from './Loops';
 import Tempo from './Tempo';
 import Volume from './Volume';
-import { ChordInfo } from './Chord'
+import { ChordInfo } from '../board/Chord'
 
 type MenuProps = {
-  chords: ChordInfo[],
+  chords: ChordInfo[] | null,
   playingChordCallback: Function,
   playingChord: number | null,
   synth: Tone.PolySynth | null,

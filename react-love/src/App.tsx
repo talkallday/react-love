@@ -2,6 +2,11 @@ import React from 'react';
 import { useState } from 'react';
 import * as Tone from 'tone';
 
+import Button from '@mui/material/Button';
+import { FormControl } from '@mui/base/FormControl';
+import { Input } from '@mui/base/Input';
+
+
 import './style.css';
 import Board from './components/board/Board';
 import { ChordInfo } from './components/board/Chord'
@@ -61,7 +66,10 @@ const boardChords = [
 function App() {
   const [synth, setSynth] = useState<Tone.PolySynth<Tone.Synth<Tone.SynthOptions>> | null>(null);
   const [disabled, setDisabled] = useState(true);
-  const [chords, setChords] = useState(null);
+  const [userInput, setUserInput] = useState("");
+  const [chords, setChords] = useState<ChordInfo[] | null>(null);
+  const [errors, setErrors] = useState("");
+  const [isValidInput, setIsValidInput] = useState(false);
   const [playingChordIndex, setPlayingChordIndex] = useState(null);
 
   const createSynth = () => {
@@ -73,12 +81,23 @@ function App() {
     return newSynth
   }
 
-  const handleSubmitTune = (e) => {
+  const handleSubmitTune = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const tuneData = Object.fromEntries(new FormData(e.target).entries());
-    const tunes = tuneData.songContent.replace(/(\r\n|\n|\r|\s)/gm, "");
-    const tune = JSON.parse(tunes);
-    setChords(tune);
+    try {
+      const tunes = userInput.replace(/(\r\n|\n|\r|\s)/gm, "");
+      const jsonTune: ChordInfo[] = JSON.parse(tunes);
+      setChords(jsonTune);
+      setIsValidInput(true);
+    }
+    catch(error) {
+      if (error instanceof Error) {
+        setErrors(error.message);
+      }
+    }
+  }
+
+  const populateUserInput = (e: React.FormEvent<HTMLDivElement>) => {
+    setUserInput((e.target as HTMLTextAreaElement).value);
   }
 
   const enable = async () => {
@@ -93,7 +112,7 @@ function App() {
   return (
     <div className="app">
     {
-      chords
+      isValidInput
       ?
       <>
       <Menu
@@ -107,16 +126,20 @@ function App() {
       <Board chords={chords} playingChord={playingChordIndex} />
       </>
       :
-      <>
+      <div style={{ padding: "0px 0px 0px 200px" }}>
       <form onSubmit={(e) => handleSubmitTune(e)}>
-        <button type="submit">Submit your tune</button>
-        <textarea
-          name="songContent"
-          rows={16}
-          cols={120}
+        <div style={{ color: "white" }}>{errors}</div>
+        <>
+        <Button type="submit" variant="contained">Click to enter tune</Button>
+        </>
+        <Input
+          multiline
+          rows={20}
+          value={chords}
+          onInput={populateUserInput}
           />
       </form>
-      </>
+      </div>
     }
     </div>
   );

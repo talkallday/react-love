@@ -14,13 +14,9 @@ const Loops = ({loopTimes, setLoopTimesCallback}: LoopsProps) => {
     timeOptions.push(optionValue)
   }
 
-  const submitLoops = (newLoopTimes: number) => {
-    setLoopTimesCallback(newLoopTimes)
-  }
-
   return (
     <form id="loop-form" style={{ width: '5rem' }}>
-      <select id="loops-select" name="loops" value={loopTimes} onChange={(e) => submitLoops(e.target.value)}>
+      <select id="loops-select" name="loops" value={loopTimes} onChange={(e) => setLoopTimesCallback(e.target.value)}>
         {timeOptions.map((option, index) => Option(option, index))}
       </select>
       <label color="white">Loops</label>

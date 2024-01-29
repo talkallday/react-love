@@ -19,7 +19,7 @@ const getRandomNotes = (chordNotes: string[]) => {
 
 
 type PlayProps = {
-  chords: ChordInfo[],
+  chords: ChordInfo[] | null,
   setLoopCallback: Function,
   playingChordCallback: Function,
   synth: Tone.PolySynth | null,
@@ -58,19 +58,23 @@ const Play = ({
     var addressedTime = 0;
     for (var j = 0; j < totalLoops; j++) {
       const loop = j + 1;
-      chords.forEach((chord, index) => {
-        scheduledTime += chord.duration;
-        for (var i = 0; i < chord.duration; i++) {
-          while (addressedTime <= scheduledTime) {
-            const measure = Math.floor(addressedTime / 4);
-            const beat = (addressedTime) % 4;
-            Tone.Transport.scheduleOnce(time => {
-              playChord(chord, time, loop, index)
-            }, measure + ":" + beat + ":0");
-            addressedTime++;
+      if (chords === null) {
+        return;
+      } else {
+        chords.forEach((chord, index) => {
+          scheduledTime += chord.duration;
+          for (var i = 0; i < chord.duration; i++) {
+            while (addressedTime <= scheduledTime) {
+              const measure = Math.floor(addressedTime / 4);
+              const beat = (addressedTime) % 4;
+              Tone.Transport.scheduleOnce(time => {
+                playChord(chord, time, loop, index)
+              }, measure + ":" + beat + ":0");
+              addressedTime++;
+            }
           }
-        }
-      });
+        });
+      }
     }
     Tone.Transport.scheduleOnce(time => {
       playChord(null, time, 0, null)
@@ -80,6 +84,9 @@ const Play = ({
   const stop = () =>
   {
     Tone.Transport.stop();
+    if (synth !== null) {
+      synth.releaseAll();
+    }
     playingChordCallback(null);
     setPlaying(false);
     setLoopCallback(0);

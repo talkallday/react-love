@@ -153,9 +153,13 @@ export const getAllNotes = (chord: string[]) => {
   return notes;
 }
 
-export type ChordInfo = {
-  notes: string[],
-  duration: number
+export class ChordInfo {
+  notes: string[];
+  duration: number;
+  constructor(notes: string[], duration: number) {
+    this.notes = notes;
+    this.duration = duration;
+  }
 }
 
 type ChordProps = {
