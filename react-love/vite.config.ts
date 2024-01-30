@@ -6,6 +6,7 @@ export default defineConfig({
     // depending on your application, base can also be "/"
     base: '/react-love/',
     plugins: [react(), viteTsconfigPaths()],
+    build: { chunkSizeWarningLimit: 1600, },
     server: {    
         // this ensures that the browser opens upon server start
         open: true,
