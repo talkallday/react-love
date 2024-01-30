@@ -1,6 +1,9 @@
+import Box from '@mui/system/Box';
+import MenuItem from '@mui/material/MenuItem';
+
 const Option = (choice: number, key: number) => {
   return (
-    <option value={choice} key={key}>{choice}</option>
+    <MenuItem value={choice} key={key}>{choice}</MenuItem>
   )
 }
 

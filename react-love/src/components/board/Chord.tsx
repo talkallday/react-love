@@ -1,3 +1,5 @@
+import Box from '@mui/system/Box';
+
 import Note from './Note';
 
 const noteValues = new Map([
@@ -172,10 +174,10 @@ export const Chord = ({chord, playingChordIndex, index}: ChordProps) =>
 {
   const chordNotes = getAllNotes(chord.notes);
   return (
-    <div className="chord">
-      <div key={index} className="index">{index + 1}</div>
+    <Box className="chord">
+      <Box key={index} className="index">{index + 1}</Box>
       {chordNotes.map((note) => <Note isPlaying={index === playingChordIndex} key={note} note={note}/>)}
-      <div key={"" + index + chord.duration} className="index">{chord.duration}</div>
-    </div>
+      <Box key={"" + index + chord.duration} className="index">{chord.duration}</Box>
+    </Box>
   )
 }

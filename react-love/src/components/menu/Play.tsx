@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import * as Tone from 'tone';
+import Box from '@mui/system/Box';
 
 import { ChordInfo, getAllNotes } from '../board/Chord';
 
@@ -103,13 +104,13 @@ const Play = ({
   }
 
   return (
-    <div
-      style={{ backgroundColor: disabled ? "black" : playing ? "red" : "green" }}
+    <Box
+      sx={{ backgroundColor: disabled ? "black" : playing ? "red" : "green" }}
       className="cell"
       id="play-button"
       onClick={ disabled ? () => enableCallback() : () => loopPlay() }>
       { disabled ? "Click to enable" : playing ? "Stop" : "Play" }
-    </div>
+    </Box>
   )
 }
 

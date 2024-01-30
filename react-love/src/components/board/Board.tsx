@@ -1,3 +1,5 @@
+import Box from '@mui/system/Box';
+
 import { Chord, ChordInfo } from './Chord';
 
 type BoardProps = {
@@ -7,13 +9,13 @@ type BoardProps = {
 
 const Board = ({chords, playingChord}: BoardProps) => {
   return (
-    <div className="board" id="sound-board">
+    <Box className="board" id="sound-board">
       {
         chords
         ? chords.map((chord, index) => <Chord key={index} chord={chord} index={index} playingChordIndex={playingChord} />)
         : "no chords available"
       }
-    </div>
+    </Box>
   )
 }
 

@@ -1,3 +1,5 @@
+import Box from '@mui/system/Box';
+
 import { useState } from 'react';
 
 type NoteProps = {
@@ -8,12 +10,12 @@ type NoteProps = {
 const Note = ({note, isPlaying}: NoteProps) => {
 
   return (
-  <div
+  <Box
     className={"cell key "  + (isPlaying ? "playing" : "")}
     style={{backgroundColor: isPlaying ? "yellow" : "blue"}}
-  >
+    >
     {note}
-  </div>
+  </Box>
   );
 }
 

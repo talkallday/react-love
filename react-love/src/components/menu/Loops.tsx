@@ -1,3 +1,6 @@
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+
 import Option from './Option';
 
 import { useState, ChangeEvent } from 'react';
@@ -9,16 +12,22 @@ type LoopsProps = {
 
 const Loops = ({loopTimes, setLoopTimesCallback}: LoopsProps) => {
   const timeOptions = [];
-  for (let v = 0; v < 16; v++) {
-    var optionValue = v + 1;
-    timeOptions.push(optionValue)
+
+  for (let v = 1; v < 17; v++) {
+    timeOptions.push(v)
   }
 
   return (
-    <form id="loop-form" style={{ width: '5rem' }}>
-      <select id="loops-select" name="loops" value={loopTimes} onChange={(e) => setLoopTimesCallback(e.target.value)}>
-        {timeOptions.map((option, index) => Option(option, index))}
-      </select>
+    <form id="loop-form" style={{ width: '5rem', color: 'white' }}>
+      <Select
+        sx={{ color: 'white' }}
+        id="loops-select"
+        name="loops"
+        defaultValue={loopTimes}
+        onChange={e => setLoopTimesCallback((e.target as HTMLInputElement).value)}
+        >
+        {timeOptions.map((option, index) => <MenuItem value={option}>{option}</MenuItem>)}
+      </Select>
       <label color="white">Loops</label>
     </form>
   )

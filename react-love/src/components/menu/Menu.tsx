@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import * as Tone from 'tone';
+import Box from '@mui/system/Box';
 
+import ChangeSong from './ChangeSong';
 import ChordStatus from './ChordStatus';
 import LoopStatus from './LoopStatus';
 import Play from './Play';
@@ -10,11 +12,12 @@ import Volume from './Volume';
 import { ChordInfo } from '../board/Chord'
 
 type MenuProps = {
-  chords: ChordInfo[] | null,
+  chords: ChordInfo[],
   playingChordCallback: Function,
   playingChord: number | null,
   synth: Tone.PolySynth | null,
   disabled: boolean,
+  setChordsCallback: Function,
   enableCallback: Function
 }
 
@@ -24,6 +27,7 @@ const Menu = ({
   enableCallback,
   playingChordCallback,
   playingChord,
+  setChordsCallback,
   disabled}: MenuProps) => {
   const [totalLoops, setTotalLoops] = useState(4);
   const [loop, setLoop] = useState(0);
@@ -44,6 +48,7 @@ const Menu = ({
       <ChordStatus playingChord={playingChord} />
       <Volume synth={synth} />
       <Tempo synth={synth} />
+      <ChangeSong chords={chords} setChordsCallback={setChordsCallback} />
     </div>
   )
 }

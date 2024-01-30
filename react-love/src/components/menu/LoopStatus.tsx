@@ -1,3 +1,5 @@
+import Box from '@mui/system/Box';
+
 type StatusProps = {
   loopTimes: number,
   loop: number

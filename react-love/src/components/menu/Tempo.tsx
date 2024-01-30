@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import * as Tone from 'tone';
+import Box from '@mui/system/Box';
 
 type TempoProps = {
   synth: Tone.PolySynth | null
