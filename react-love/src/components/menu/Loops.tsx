@@ -11,11 +11,7 @@ type LoopsProps = {
 }
 
 const Loops = ({loopTimes, setLoopTimesCallback}: LoopsProps) => {
-  const timeOptions = [];
-
-  for (let v = 1; v < 17; v++) {
-    timeOptions.push(v)
-  }
+  const timeOptions = [...Array(17).keys()].slice(1);
 
   return (
     <form id="loop-form" style={{ width: '5rem', color: 'white' }}>
