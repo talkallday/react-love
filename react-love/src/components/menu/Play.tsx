@@ -18,35 +18,41 @@ const getRandomNotes = (chordNotes: string[]) => {
   return randomChordNotes;
 }
 
-
 type PlayProps = {
-  chords: ChordInfo[] | null,
+  chords: ChordInfo[],
   setLoopCallback: Function,
-  playingChordCallback: Function,
+  setPlayingChordIndex: Function,
   synth: Tone.PolySynth | null,
   disabled: boolean,
-  enableCallback: Function,
+  enablePlay: Function,
+  playing: boolean,
+  setPlaying: Function,
   totalLoops: number
 }
 
 const Play = ({
   chords,
   setLoopCallback,
-  playingChordCallback,
+  setPlayingChordIndex,
   synth,
   disabled,
-  enableCallback,
+  enablePlay,
+  playing,
+  setPlaying,
   totalLoops}: PlayProps) => {
-  const [playing, setPlaying] = useState(false);
 
   const playChord = (chord: ChordInfo | null, timeToPlay: number, loop: number, index: number | null) => {
     if (chord === null) {
-      playingChordCallback(null);
+      setPlayingChordIndex(null);
       setPlaying(false);
       setLoopCallback(0);
+      Tone.Transport.stop();
+      if (synth) {
+        synth.releaseAll();
+      }
       return;
     }
-    playingChordCallback(index);
+    setPlayingChordIndex(index);
     setLoopCallback(loop);
     if (synth !== null) {
       synth.triggerAttackRelease(getRandomNotes(chord.notes), '4n', timeToPlay);
@@ -65,7 +71,7 @@ const Play = ({
         chords.forEach((chord, index) => {
           scheduledTime += chord.duration;
           for (var i = 0; i < chord.duration; i++) {
-            while (addressedTime <= scheduledTime) {
+            while (addressedTime < scheduledTime) {
               const measure = Math.floor(addressedTime / 4);
               const beat = (addressedTime) % 4;
               Tone.Transport.scheduleOnce(time => {
@@ -77,9 +83,11 @@ const Play = ({
         });
       }
     }
+    const measure = Math.floor(addressedTime / 4);
+    const beat = (addressedTime) % 4;
     Tone.Transport.scheduleOnce(time => {
       playChord(null, time, 0, null)
-    }, addressedTime);
+    }, measure + ":" + beat + ":0");
   }
 
   const stop = () =>
@@ -88,7 +96,7 @@ const Play = ({
     if (synth !== null) {
       synth.releaseAll();
     }
-    playingChordCallback(null);
+    setPlayingChordIndex(null);
     setPlaying(false);
     setLoopCallback(0);
   }
@@ -105,11 +113,11 @@ const Play = ({
 
   return (
     <Box
-      sx={{ backgroundColor: disabled ? "black" : playing ? "red" : "green" }}
+      sx={{ backgroundColor: disabled ? "blue" : playing ? "red" : "green" }}
       className="cell"
       id="play-button"
-      onClick={ disabled ? () => enableCallback() : () => loopPlay() }>
-      { disabled ? "Click to enable" : playing ? "Stop" : "Play" }
+      onClick={ disabled ? () => enablePlay() : () => loopPlay() }>
+      { disabled ? "Enable Play" : playing ? "Stop" : "Play" }
     </Box>
   )
 }

@@ -9,7 +9,7 @@ type TempoProps = {
 const Tempo = ({synth}: TempoProps) => {
   const [tempo, setTempo] = useState(60);
 
-  const setOnTempo = async (desiredTempo: number) => {
+  const setOnTempo = (desiredTempo: number) => {
     if (synth) {
       setTempo(desiredTempo);
       Tone.Transport.bpm.value = desiredTempo;
@@ -17,17 +17,20 @@ const Tempo = ({synth}: TempoProps) => {
   }
 
   return (
-    <>
-    <input
-      type="range"
-      min={40}
-      max={400}
-      step={10}
-      value={tempo}
-      onChange={async (event) => await setOnTempo(event.target.valueAsNumber)}
-    />
-    <p style={{ color: "white", width: "2rem" }}>BPM: {tempo}</p>
-    </>
+    <Box sx={{ paddingLeft: '0.5rem'}}>
+      <Box sx={{ color: "white", width: "3rem", fontSize: "0.7rem" }}>
+        BPM: {tempo}
+      </Box>
+      <input
+        disabled={synth === null}
+        type="range"
+        min={40}
+        max={400}
+        step={10}
+        value={tempo}
+        onChange={(event) => setOnTempo(event.target.valueAsNumber)}
+      />
+    </Box>
   )
 }
 

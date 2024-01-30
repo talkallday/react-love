@@ -6,6 +6,7 @@ type ChordStatusProps = {
 const ChordStatus = ({playingChord}: ChordStatusProps) => {
   return (
     <Box
+      sx={{ maxWidth: '8rem' }}
       className="cell"
       id="play-color">
       { playingChord !== null ? "Chord " + playingChord : "Not playing" }

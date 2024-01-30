@@ -1,13 +1,23 @@
 import Box from '@mui/system/Box';
 
+import Loops from './Loops';
+
 type StatusProps = {
-  loopTimes: number,
+  totalLoops: number,
+  setTotalLoops: Function,
+  playing: boolean,
   loop: number
 }
 
-const LoopStatus = ({loopTimes, loop}: StatusProps) => {
+const LoopStatus = ({totalLoops, setTotalLoops, playing, loop}: StatusProps) => {
   return (
-    <div className="cell" id="play-status">Loop {loop} of {loopTimes}</div>
+    <Box
+      sx={{ maxWidth: '8rem' }}
+      className="cell"
+      id="play-status"
+    >
+      Loop {loop} of {<Loops playing={playing} totalLoops={totalLoops} setTotalLoops={setTotalLoops} />}
+    </Box>
   )
 }
 

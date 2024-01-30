@@ -1,30 +1,29 @@
-import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-
-import Option from './Option';
+import Select from '@mui/material/Select';
 
 import { useState, ChangeEvent } from 'react';
 
 type LoopsProps = {
-  loopTimes: number,
-  setLoopTimesCallback: Function
+  playing: boolean,
+  totalLoops: number,
+  setTotalLoops: Function
 }
 
-const Loops = ({loopTimes, setLoopTimesCallback}: LoopsProps) => {
+const Loops = ({playing, totalLoops, setTotalLoops}: LoopsProps) => {
   const timeOptions = [...Array(17).keys()].slice(1);
 
   return (
-    <form id="loop-form" style={{ width: '5rem', color: 'white' }}>
+    <form id="loop-form">
       <Select
-        sx={{ color: 'white' }}
+        disabled={playing}
+        sx={{ color: 'white', width: '5rem', backgroundColor: 'gray', padding: "0rem 1rem", maxHeight: "1.5rem" }}
         id="loops-select"
         name="loops"
-        defaultValue={loopTimes}
-        onChange={e => setLoopTimesCallback((e.target as HTMLInputElement).value)}
+        value={totalLoops}
+        onChange={e => setTotalLoops((e.target as HTMLInputElement).value)}
         >
-        {timeOptions.map((option, index) => <MenuItem value={option}>{option}</MenuItem>)}
+        {timeOptions.map((option, index) => <MenuItem key={index} value={option}>{option}</MenuItem>)}
       </Select>
-      <label color="white">Loops</label>
     </form>
   )
 }

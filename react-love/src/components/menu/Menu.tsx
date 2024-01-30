@@ -13,43 +13,51 @@ import { ChordInfo } from '../board/Chord'
 
 type MenuProps = {
   chords: ChordInfo[],
-  playingChordCallback: Function,
+  setPlayingChordIndex: Function,
   playingChord: number | null,
   synth: Tone.PolySynth | null,
+  userSynth: Tone.Synth | null,
   disabled: boolean,
-  setChordsCallback: Function,
-  enableCallback: Function
+  volume: number,
+  setVolume: Function,
+  setChords: Function,
+  enablePlay: Function
 }
 
 const Menu = ({
   chords,
   synth,
-  enableCallback,
-  playingChordCallback,
+  userSynth,
+  enablePlay,
+  setPlayingChordIndex,
   playingChord,
-  setChordsCallback,
+  setChords,
+  volume,
+  setVolume,
   disabled}: MenuProps) => {
   const [totalLoops, setTotalLoops] = useState(4);
   const [loop, setLoop] = useState(0);
+  const [playing, setPlaying] = useState(false);
 
   return (
-    <div className="chord">
+    <Box className="row">
       <Play
         chords={chords}
         setLoopCallback={setLoop}
-        playingChordCallback={playingChordCallback}
+        setPlayingChordIndex={setPlayingChordIndex}
         disabled={disabled}
-        enableCallback={enableCallback}
+        enablePlay={enablePlay}
+        playing={playing}
+        setPlaying={setPlaying}
         totalLoops={totalLoops}
         synth={synth}
         />
-      <Loops loopTimes={totalLoops} setLoopTimesCallback={setTotalLoops} />
-      <LoopStatus loop={loop} loopTimes={totalLoops} />
-      <ChordStatus playingChord={playingChord} />
-      <Volume synth={synth} />
       <Tempo synth={synth} />
-      <ChangeSong chords={chords} setChordsCallback={setChordsCallback} />
-    </div>
+      <LoopStatus loop={loop} playing={playing} totalLoops={totalLoops} setTotalLoops={setTotalLoops} />
+      <ChordStatus playingChord={playingChord} />
+      <Volume volume={volume} setVolume={setVolume} synth={synth} userSynth={userSynth} />
+      <ChangeSong chords={chords} setChords={setChords} />
+    </Box>
   )
 }
 

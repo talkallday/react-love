@@ -1,4 +1,5 @@
 import Box from '@mui/system/Box';
+import * as Tone from 'tone';
 
 import Note from './Note';
 
@@ -167,16 +168,35 @@ export class ChordInfo {
 type ChordProps = {
   chord: ChordInfo,
   playingChordIndex: number | null,
+  volume: number,
+  userSynth: Tone.Synth | null,
+  setUserSynth: Function,
   index: number
 }
 
-export const Chord = ({chord, playingChordIndex, index}: ChordProps) =>
+export const Chord = ({
+  chord,
+  playingChordIndex,
+  volume,
+  userSynth,
+  setUserSynth,
+  index}: ChordProps) =>
 {
   const chordNotes = getAllNotes(chord.notes);
   return (
-    <Box className="chord">
+    <Box className="row">
       <Box key={index} className="index">{index + 1}</Box>
-      {chordNotes.map((note) => <Note isPlaying={index === playingChordIndex} key={note} note={note}/>)}
+      {chordNotes.map(
+        (note) =>
+        <Note
+          isPlaying={index === playingChordIndex}
+          key={note}
+          note={note}
+          volume={volume}
+          userSynth={userSynth}
+          setUserSynth={setUserSynth}
+          />
+      )}
       <Box key={"" + index + chord.duration} className="index">{chord.duration}</Box>
     </Box>
   )
