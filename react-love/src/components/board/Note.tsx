@@ -49,6 +49,7 @@ const Note = ({note, volume, userSynth, setUserSynth, isPlaying}: NoteProps) => 
       backgroundColor: isPlaying ? 'yellow' : 'blue',
       textTransform: 'none',
       margin: '0.2rem',
+      minWidth: '1rem',
       '&.MuiButton-root:hover': {backgroundColor: 'orange'},
       color: isPlaying ? 'black' : 'white'
     }}
