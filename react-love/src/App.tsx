@@ -42,8 +42,6 @@ const theme = createTheme({
         body: {
           backgroundColor: "black",
           backgroundSize: "cover",
-          margin: 0,
-          padding: 0,
           fontFamily: "sans-serif",
           textTransform: "uppercase"
         },
@@ -69,12 +67,10 @@ const theme = createTheme({
         },
         '.cell': {
           borderRadius: '.15rem',
-          margin: '0.25rem',
           padding: '.25rem .125rem',
           transition: 'all .07s ease',
           width: '15rem',
           textAlign: 'center',
-          textShadow: '0 0 .5rem black',
           display: 'inline-block',
           minHeight: '3rem',
           color: 'white',

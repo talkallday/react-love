@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Box from '@mui/system/Box';
+import Button from '@mui/material/Button';
 import * as Tone from 'tone';
 
 import { convertVolume } from '../../utils';
@@ -43,19 +43,20 @@ const Note = ({note, volume, userSynth, setUserSynth, isPlaying}: NoteProps) => 
   };
 
   return (
-  <Box
-    className={"cell key "  + (isPlaying ? "playing" : "")}
-    style={{
-      backgroundColor: isPlaying
-        ? (isStruck ? "orange" : "yellow")
-        : ( isStruck ? "yellow" : "blue"),
-      textTransform: 'none'
+  <Button
+    className={"cell "  + (isPlaying ? "playing" : "")}
+    sx={{
+      backgroundColor: isPlaying ? 'yellow' : 'blue',
+      textTransform: 'none',
+      margin: '0.2rem',
+      '&.MuiButton-root:hover': {backgroundColor: 'orange'},
+      color: isPlaying ? 'black' : 'white'
     }}
     onPointerDown={playNote}
     onPointerUp={stopNote}
     >
     {note}
-  </Box>
+  </Button>
   );
 }
 

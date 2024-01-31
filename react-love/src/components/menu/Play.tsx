@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import * as Tone from 'tone';
-import Box from '@mui/system/Box';
+import Button from '@mui/material/Button';
 
 import { ChordInfo, getAllNotes } from '../board/Chord';
 
@@ -112,13 +112,19 @@ const Play = ({
   }
 
   return (
-    <Box
-      sx={{ backgroundColor: disabled ? "blue" : playing ? "red" : "green" }}
+    <Button
+      sx={{
+        backgroundColor: disabled ? 'blue' : playing ? 'red' : 'green',
+        '&.MuiButton-root:hover': {
+          backgroundColor: disabled ? 'blue' : playing ? 'red' : 'green',
+        },
+        color: 'white'
+      }}
       className="cell"
       id="play-button"
       onClick={ disabled ? () => enablePlay() : () => loopPlay() }>
       { disabled ? "Enable Play" : playing ? "Stop" : "Play" }
-    </Box>
+    </Button>
   )
 }
 

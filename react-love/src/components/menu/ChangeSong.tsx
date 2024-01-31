@@ -1,23 +1,15 @@
 import { useState } from 'react';
 import Box from '@mui/system/Box';
 import Button from '@mui/material/Button';
-import { ChordInfo } from '../board/Chord'
 import { Input } from '@mui/base/Input';
 import Modal from '@mui/material/Modal';
-import Typography from '@mui/material/Typography';
+
+import { ChordInfo } from '../board/Chord'
 
 type ChangeSongProps = {
   chords: ChordInfo[]
   setChords: Function
 }
-
-const modalStyle = {
-  bgcolor: 'white',
-  boxShadow: 1,
-  borderRadius: 2,
-  p: 2,
-  minWidth: 300,
-};
 
 const ChangeSong = ({chords, setChords}: ChangeSongProps) => {
   const [open, setOpen] = useState(false);
@@ -53,9 +45,14 @@ const ChangeSong = ({chords, setChords}: ChangeSongProps) => {
 
   return (
   <>
-  <Button sx={{ color: 'white', padding: '1rem' }} onClick={handleOpen}>Change Song</Button>
+  <Button sx={{
+    '&.MuiButton-root:hover': {backgroundColor: 'blue'},
+    color: 'white',
+    padding: '1rem',
+    backgroundColor: 'blue'
+  }} onClick={handleOpen}>Change Song</Button>
   <Modal
-    sx={modalStyle}
+    sx={{backgroundColor: 'white', p: 2}}
     open={open}
     onClose={handleClose}
     aria-labelledby="modal-modal-title"
@@ -70,6 +67,7 @@ const ChangeSong = ({chords, setChords}: ChangeSongProps) => {
         defaultValue={JSON.stringify(chords)}
         onInput={populateUserInput}
         />
+    <Button sx={{color: 'white'}} onClick={handleClose}>Close</Button>
     </form>
   </Modal>
   </>
