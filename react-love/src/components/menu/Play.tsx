@@ -120,7 +120,6 @@ const Play = ({
         },
         color: 'white'
       }}
-      className="cell"
       id="play-button"
       onClick={ disabled ? () => enablePlay() : () => loopPlay() }>
       { disabled ? "Enable Play" : playing ? "Stop" : "Play" }

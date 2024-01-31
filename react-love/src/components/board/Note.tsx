@@ -5,6 +5,7 @@ import * as Tone from 'tone';
 import { convertVolume } from '../../utils';
 
 type NoteProps = {
+  disabled: boolean,
   note: string,
   volume: number,
   userSynth: Tone.Synth | null,
@@ -12,7 +13,7 @@ type NoteProps = {
   isPlaying: boolean
 }
 
-const Note = ({note, volume, userSynth, setUserSynth, isPlaying}: NoteProps) => {
+const Note = ({disabled, note, volume, userSynth, setUserSynth, isPlaying}: NoteProps) => {
   const [isStruck, setIsStruck] = useState(false);
 
   const createUserSynth = () => {
@@ -44,6 +45,7 @@ const Note = ({note, volume, userSynth, setUserSynth, isPlaying}: NoteProps) => 
 
   return (
   <Button
+    disabled={disabled}
     className={"cell "  + (isPlaying ? "playing" : "")}
     sx={{
       backgroundColor: isPlaying ? 'yellow' : 'blue',
@@ -51,7 +53,8 @@ const Note = ({note, volume, userSynth, setUserSynth, isPlaying}: NoteProps) => 
       margin: '0.2rem',
       minWidth: '1rem',
       '&.MuiButton-root:hover': {backgroundColor: 'orange'},
-      color: isPlaying ? 'black' : 'white'
+      '&.MuiButton-root.Mui-disabled': {backgroundColor: 'gray'},
+      color: disabled ? 'gray' : isPlaying ? 'black' : 'white'
     }}
     onPointerDown={playNote}
     onPointerUp={stopNote}

@@ -166,6 +166,7 @@ export class ChordInfo {
 }
 
 type ChordProps = {
+  disabled: boolean,
   chord: ChordInfo,
   playingChordIndex: number | null,
   volume: number,
@@ -175,6 +176,7 @@ type ChordProps = {
 }
 
 export const Chord = ({
+  disabled,
   chord,
   playingChordIndex,
   volume,
@@ -189,6 +191,7 @@ export const Chord = ({
       {chordNotes.map(
         (note) =>
         <Note
+          disabled={disabled}
           isPlaying={index === playingChordIndex}
           key={note}
           note={note}

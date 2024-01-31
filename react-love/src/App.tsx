@@ -45,6 +45,9 @@ const theme = createTheme({
           fontFamily: "sans-serif",
           textTransform: "uppercase"
         },
+        button: {
+          maxHeight: '2.5rem',
+        },
         '.row': {
           display: 'flex',
           alignItems: 'center',
@@ -124,8 +127,8 @@ function App() {
     {
       <>
       <Menu
-        chords={chords}
         disabled={disabled}
+        chords={chords}
         enablePlay={enablePlay}
         setPlayingChordIndex={setPlayingChordIndex}
         playingChord={playingChord}
@@ -136,6 +139,7 @@ function App() {
         userSynth={userSynth}
         />
       <Board
+        disabled={disabled}
         chords={chords}
         volume={volume}
         userSynth={userSynth}
