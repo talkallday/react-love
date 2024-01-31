@@ -52,7 +52,7 @@ const Note = ({disabled, note, volume, userSynth, setUserSynth, isPlaying}: Note
       textTransform: 'none',
       margin: '0.2rem',
       minWidth: '1rem',
-      minHeight: '2rem',
+      height: '2rem',
       maxHeight: '3rem',
       minHeight: '1rem',
       '&.MuiButton-root:hover': {backgroundColor: 'orange'},
