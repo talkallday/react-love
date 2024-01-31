@@ -2,7 +2,7 @@ import { useState } from 'react';
 import * as Tone from 'tone';
 import Box from '@mui/system/Box';
 
-import { convertVolume } from '../../utils';
+import { convertVolume } from '../../utils/conversions';
 
 type VolumeProps = {
   synth: Tone.PolySynth | null,

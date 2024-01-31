@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Button from '@mui/material/Button';
 import * as Tone from 'tone';
 
-import { convertVolume } from '../../utils';
+import { convertVolume } from '../../utils/conversions';
 
 type NoteProps = {
   disabled: boolean,

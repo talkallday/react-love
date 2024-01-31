@@ -3,13 +3,13 @@ import * as Tone from 'tone';
 import Box from '@mui/system/Box';
 
 import ChangeSong from './ChangeSong';
+import ChordInfo from '../../types/ChordInfo';
 import ChordStatus from './ChordStatus';
 import LoopStatus from './LoopStatus';
 import Play from './Play';
 import Loops from './Loops';
 import Tempo from './Tempo';
 import Volume from './Volume';
-import { ChordInfo } from '../board/Chord'
 
 type MenuProps = {
   chords: ChordInfo[],

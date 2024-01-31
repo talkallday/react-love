@@ -2,8 +2,8 @@ import { useState } from 'react';
 import * as Tone from 'tone';
 import Button from '@mui/material/Button';
 
-import { ChordInfo, getAllNotes } from '../board/Chord';
-
+import { getAllNotes } from '../../utils/notes'
+import ChordInfo from '../../types/ChordInfo';
 
 const getRandomNotes = (chordNotes: string[]) => {
   var notes = getAllNotes(chordNotes);

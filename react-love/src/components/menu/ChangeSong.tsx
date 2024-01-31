@@ -5,7 +5,7 @@ import Modal from '@mui/material/Modal';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 
-import { ChordInfo } from '../board/Chord'
+import ChordInfo from '../../types/ChordInfo';
 
 type ChangeSongProps = {
   chords: ChordInfo[]
@@ -45,8 +45,8 @@ const ChangeSong = ({chords, setChords}: ChangeSongProps) => {
   }
 
   const inputStyle = {
-    font: 'arial',
-    backgroundColor: 'white'
+    backgroundColor: 'white',
+    '&.MuiOutlinedInput-input': {fontFamily: 'monospace'},
   }
 
   return (
@@ -71,7 +71,7 @@ const ChangeSong = ({chords, setChords}: ChangeSongProps) => {
         <TextField
           multiline
           sx={inputStyle}
-          rows={20}
+          rows={10}
           defaultValue={JSON.stringify(chords)}
           onInput={populateUserInput}
           />

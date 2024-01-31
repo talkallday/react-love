@@ -1,7 +1,8 @@
 import Box from '@mui/system/Box';
 import * as Tone from 'tone';
 
-import { Chord, ChordInfo } from './Chord';
+import Chord from './Chord';
+import ChordInfo from '../../types/ChordInfo';
 
 type BoardProps = {
   disabled: boolean,

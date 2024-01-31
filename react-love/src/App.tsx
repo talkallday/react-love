@@ -8,9 +8,9 @@ import Button from '@mui/material/Button';
 import { FormControl } from '@mui/base/FormControl';
 
 import Board from './components/board/Board';
-import { ChordInfo } from './components/board/Chord'
+import ChordInfo from './types/ChordInfo';
 import Menu from './components/menu/Menu';
-import { convertVolume } from './utils';
+import { convertVolume } from './utils/conversions';
 
 const defaultChords = [
   {
@@ -35,6 +35,11 @@ const defaultChords = [
   }
 ];
 
+const dChords = [{"notes":["D","F#","A"],"duration":4},{"notes":["A","C#","E"],"duration":4},{"notes":["B","D","F#"],"duration":4},{"notes":["C#","F#","A"],"duration":4},{"notes":["G","B","D"],"duration":4},{"notes":["D","F#","A"],"duration":4},{"notes":["C#","E","A"],"duration":8},{"notes":["D","F#","A"],"duration":4},{"notes":["A","C#","E"],"duration":4},{"notes":["B","D","F#"],"duration":4},{"notes":["C#","F#","A"],"duration":4},{"notes":["G","B","D"],"duration":4},{"notes":["D","F#","A"],"duration":4},{"notes":["C#","E","A"],"duration":8},
+{"notes":["G","B","D"],"duration":4},{"notes":["A","C#","E"],"duration":4},{"notes":["D","F#","A"],"duration":8},{"notes":["G","B","D"],"duration":4},{"notes":["A","C#","E"],"duration":4},{"notes":["D","F#","A"],"duration":8},
+{"notes":["G","B","D"],"duration":4},{"notes":["A","C#","E"],"duration":4},{"notes":["D","F#","A"],"duration":2},{"notes":["C","E","G"],"duration":2},{"notes":["B","D","F#"],"duration":4},{"notes":["G","D","B"],"duration":4},{"notes":["C#","E","A"],"duration":4},
+{"notes":["D","F#","A"],"duration":2},{"notes":["A","C#","E"],"duration":2},{"notes":["B","D","F#"],"duration":2},{"notes":["A","C#","E"],"duration":2},{"notes":["D","F#","A"],"duration":2},{"notes":["A","C#","E"],"duration":2},{"notes":["B","D","F#"],"duration":2},{"notes":["A","C#","E"],"duration":2}]
+
 const theme = createTheme({
   components: {
     MuiCssBaseline: {
@@ -46,7 +51,7 @@ const theme = createTheme({
           textTransform: "uppercase"
         },
         textarea: {
-          resize: "both"
+          resize: "both",
         },
         button: {
           maxHeight: '2.5rem',
@@ -90,11 +95,6 @@ const theme = createTheme({
     }
   }
 });
-
-const dChords = [{"notes":["D","F#","A"],"duration":4},{"notes":["A","C#","E"],"duration":4},{"notes":["B","D","F#"],"duration":4},{"notes":["C#","F#","A"],"duration":4},{"notes":["G","B","D"],"duration":4},{"notes":["D","F#","A"],"duration":4},{"notes":["C#","E","A"],"duration":8},{"notes":["D","F#","A"],"duration":4},{"notes":["A","C#","E"],"duration":4},{"notes":["B","D","F#"],"duration":4},{"notes":["C#","F#","A"],"duration":4},{"notes":["G","B","D"],"duration":4},{"notes":["D","F#","A"],"duration":4},{"notes":["C#","E","A"],"duration":8},
-{"notes":["G","B","D"],"duration":4},{"notes":["A","C#","E"],"duration":4},{"notes":["D","F#","A"],"duration":8},{"notes":["G","B","D"],"duration":4},{"notes":["A","C#","E"],"duration":4},{"notes":["D","F#","A"],"duration":8},
-{"notes":["G","B","D"],"duration":4},{"notes":["A","C#","E"],"duration":4},{"notes":["D","F#","A"],"duration":2},{"notes":["C","E","G"],"duration":2},{"notes":["B","D","F#"],"duration":4},{"notes":["G","D","B"],"duration":4},{"notes":["C#","E","A"],"duration":4},
-{"notes":["D","F#","A"],"duration":2},{"notes":["A","C#","E"],"duration":2},{"notes":["B","D","F#"],"duration":2},{"notes":["A","C#","E"],"duration":2},{"notes":["D","F#","A"],"duration":2},{"notes":["A","C#","E"],"duration":2},{"notes":["B","D","F#"],"duration":2},{"notes":["A","C#","E"],"duration":2}]
 
 function App() {
   const [synth, setSynth] = useState<Tone.PolySynth<Tone.Synth<Tone.SynthOptions>> | null>(null);
