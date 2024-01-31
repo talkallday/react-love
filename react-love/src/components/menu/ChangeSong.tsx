@@ -46,7 +46,10 @@ const ChangeSong = ({chords, setChords}: ChangeSongProps) => {
 
   const inputStyle = {
     backgroundColor: 'white',
-    '&.MuiOutlinedInput-input': {fontFamily: 'monospace'},
+    '& textarea':
+    {
+      fontFamily: 'monospace',
+    }
   }
 
   return (
@@ -58,7 +61,7 @@ const ChangeSong = ({chords, setChords}: ChangeSongProps) => {
     backgroundColor: 'blue'
   }} onClick={handleOpen}>Change Song</Button>
   <Modal
-    sx={{backgroundColor: 'white', p: 2}}
+    sx={{backgroundColor: 'white', p: 2, fontFamily: 'monospace'}}
     open={open}
     onClose={handleClose}
     aria-labelledby="modal-modal-title"
@@ -75,7 +78,7 @@ const ChangeSong = ({chords, setChords}: ChangeSongProps) => {
           defaultValue={JSON.stringify(chords)}
           onInput={populateUserInput}
           />
-        <Button sx={{color: 'white'}} onClick={handleClose}>Close</Button>
+      <Button sx={{color: 'white'}} onClick={handleClose}>Close</Button>
       </Stack>
     </form>
   </Modal>

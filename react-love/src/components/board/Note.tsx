@@ -52,6 +52,9 @@ const Note = ({disabled, note, volume, userSynth, setUserSynth, isPlaying}: Note
       textTransform: 'none',
       margin: '0.2rem',
       minWidth: '1rem',
+      minHeight: '2rem',
+      maxHeight: '3rem',
+      minHeight: '1rem',
       '&.MuiButton-root:hover': {backgroundColor: 'orange'},
       '&.MuiButton-root.Mui-disabled': {backgroundColor: 'gray'},
       color: disabled ? 'gray' : isPlaying ? 'black' : 'white'

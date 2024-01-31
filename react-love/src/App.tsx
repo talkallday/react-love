@@ -54,7 +54,7 @@ const theme = createTheme({
           resize: "both",
         },
         button: {
-          maxHeight: '2.5rem',
+          maxHeight: '3rem',
         },
         '.row': {
           display: 'flex',
@@ -73,7 +73,8 @@ const theme = createTheme({
           textAlign: 'center',
           textShadow: '0 0 .5rem black',
           display: 'inline-block',
-          minHeight: '3rem',
+          height: '3rem',
+          minHeight: '2rem',
           color: 'white',
         },
         '.cell': {
@@ -83,7 +84,8 @@ const theme = createTheme({
           width: '15rem',
           textAlign: 'center',
           display: 'inline-block',
-          minHeight: '3rem',
+          height: '3rem',
+          minHeight: '2rem',
           color: 'white',
         },
         '.playing': {
