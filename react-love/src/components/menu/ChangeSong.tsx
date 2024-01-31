@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import Box from '@mui/system/Box';
 import Button from '@mui/material/Button';
-import { Input } from '@mui/base/Input';
 import Modal from '@mui/material/Modal';
+import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
 
 import { ChordInfo } from '../board/Chord'
 
@@ -43,6 +44,11 @@ const ChangeSong = ({chords, setChords}: ChangeSongProps) => {
     setOpen(false);
   }
 
+  const inputStyle = {
+    font: 'arial',
+    backgroundColor: 'white'
+  }
+
   return (
   <>
   <Button sx={{
@@ -59,15 +65,18 @@ const ChangeSong = ({chords, setChords}: ChangeSongProps) => {
     aria-describedby="modal-modal-description"
     >
     <form onSubmit={(e) => handleSubmitTune(e)}>
-      <Box>{errors}</Box>
-      <Button type="submit" variant="contained">Click to enter tune</Button>
-      <Input
-        multiline
-        rows={20}
-        defaultValue={JSON.stringify(chords)}
-        onInput={populateUserInput}
-        />
-    <Button sx={{color: 'white'}} onClick={handleClose}>Close</Button>
+      <Stack>
+        <Box>{errors}</Box>
+        <Button type="submit" variant="contained">Click to enter tune</Button>
+        <TextField
+          multiline
+          sx={inputStyle}
+          rows={20}
+          defaultValue={JSON.stringify(chords)}
+          onInput={populateUserInput}
+          />
+        <Button sx={{color: 'white'}} onClick={handleClose}>Close</Button>
+      </Stack>
     </form>
   </Modal>
   </>

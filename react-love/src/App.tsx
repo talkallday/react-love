@@ -45,6 +45,9 @@ const theme = createTheme({
           fontFamily: "sans-serif",
           textTransform: "uppercase"
         },
+        textarea: {
+          resize: "both"
+        },
         button: {
           maxHeight: '2.5rem',
         },
