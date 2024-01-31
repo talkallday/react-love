@@ -51,8 +51,8 @@ const Note = ({note, volume, userSynth, setUserSynth, isPlaying}: NoteProps) => 
         : ( isStruck ? "yellow" : "blue"),
       textTransform: 'none'
     }}
-    onMouseDown={playNote}
-    onMouseUp={stopNote}
+    onPointerDown={playNote}
+    onPointerUp={stopNote}
     >
     {note}
   </Box>
