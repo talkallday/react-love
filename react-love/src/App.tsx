@@ -107,11 +107,19 @@ function App() {
   const [playingChordIndex, setPlayingChordIndex] = useState(null);
 
   const createSynth = () => {
-    const newSynth = new Tone.PolySynth().toDestination();
-    const chorus = new Tone.Chorus(2, 2.5, 0.5).toDestination().start();
-    const actualVolume = convertVolume(volume) - 1;
-    const toneVolume = new Tone.Volume(actualVolume);
-    newSynth.chain(chorus, toneVolume);
+    const options =  {
+      oscillator : {
+        type : "sawtooth4"
+      },
+      envelope : {
+        attack : 0.005,
+        decay : 0.1,
+        sustain : 0.3,
+        release : 1
+        }
+      }
+    const newSynth = new Tone.PolySynth(options).toDestination();
+    const actualVolume = convertVolume(volume) - 5;
     newSynth.volume.value = actualVolume;
     return newSynth
   }

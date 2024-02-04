@@ -17,11 +17,19 @@ const Note = ({disabled, note, volume, userSynth, setUserSynth, isPlaying}: Note
   const [isStruck, setIsStruck] = useState(false);
 
   const createUserSynth = () => {
-    const newSynth = new Tone.Synth().toDestination();
-    const chorus = new Tone.Chorus(4, 2.5, 0.5).toDestination().start();
+    const options =  {
+      oscillator : {
+        type : "sawtooth4"
+      },
+      envelope : {
+        attack : 0.005,
+        decay : 0.1,
+        sustain : 0.3,
+        release : 1
+        }
+      }
+    const newSynth = new Tone.Synth(options).toMaster();
     const actualVolume = convertVolume(volume);
-    const toneVolume = new Tone.Volume(actualVolume);
-    newSynth.chain(chorus, toneVolume);
     newSynth.volume.value = actualVolume;
     return newSynth
   }
@@ -33,7 +41,7 @@ const Note = ({disabled, note, volume, userSynth, setUserSynth, isPlaying}: Note
       synth = createUserSynth();
       setUserSynth(synth);
     }
-    synth.triggerAttack(note)
+    synth.triggerAttackRelease(note)
   };
 
   const stopNote = () => {

@@ -18,7 +18,7 @@ const Volume = ({synth, userSynth, volume, setVolume}: VolumeProps) => {
     const actualVolume = convertVolume(desiredVolume);
     setVolume(desiredVolume);
     if (synth) {
-      synth.volume.value = actualVolume - 1;
+      synth.volume.value = actualVolume - 5;
     }
     if (userSynth) {
       userSynth.volume.value = actualVolume;
