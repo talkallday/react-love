@@ -17,18 +17,7 @@ const Note = ({disabled, note, volume, userSynth, setUserSynth, isPlaying}: Note
   const [isStruck, setIsStruck] = useState(false);
 
   const createUserSynth = () => {
-    const options =  {
-      oscillator : {
-        type : "sawtooth4"
-      },
-      envelope : {
-        attack : 0.005,
-        decay : 0.1,
-        sustain : 0.3,
-        release : 1
-        }
-      }
-    const newSynth = new Tone.Synth(options).toMaster();
+    const newSynth = new Tone.Synth().toDestination();
     const actualVolume = convertVolume(volume);
     newSynth.volume.value = actualVolume;
     return newSynth
@@ -41,7 +30,7 @@ const Note = ({disabled, note, volume, userSynth, setUserSynth, isPlaying}: Note
       synth = createUserSynth();
       setUserSynth(synth);
     }
-    synth.triggerAttackRelease(note)
+    synth.triggerAttackRelease(note, "8n");
   };
 
   const stopNote = () => {
@@ -60,7 +49,7 @@ const Note = ({disabled, note, volume, userSynth, setUserSynth, isPlaying}: Note
       textTransform: 'none',
       margin: '0.2rem',
       minWidth: '1rem',
-      height: '2rem',
+      height: '3rem',
       maxHeight: '3rem',
       minHeight: '1rem',
       '&.MuiButton-root:hover': {backgroundColor: 'orange'},

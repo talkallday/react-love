@@ -7,38 +7,11 @@ import { Box, ThemeProvider } from '@mui/system';
 import Button from '@mui/material/Button';
 import { FormControl } from '@mui/base/FormControl';
 
+import Examples from './songs'
 import Board from './components/board/Board';
 import ChordInfo from './types/ChordInfo';
 import Menu from './components/menu/Menu';
 import { convertVolume } from './utils/conversions';
-
-const defaultChords = [
-  {
-    "notes": ["Eb", "G", "Bb"],
-    "duration": 4
-  },
-  {
-    "notes": ["C", "Eb", "G", "Bb"],
-    "duration": 4
-  },
-  {
-    "notes": ["G", "Bb", "D"],
-    "duration": 8
-  },
-  {
-    "notes": ["F", "Ab", "C"],
-    "duration": 8
-  },
-  {
-    "notes": ["C", "Eb", "G"],
-    "duration": 8
-  }
-];
-
-const dChords = [{"notes":["D","F#","A"],"duration":4},{"notes":["A","C#","E"],"duration":4},{"notes":["B","D","F#"],"duration":4},{"notes":["C#","F#","A"],"duration":4},{"notes":["G","B","D"],"duration":4},{"notes":["D","F#","A"],"duration":4},{"notes":["C#","E","A"],"duration":8},{"notes":["D","F#","A"],"duration":4},{"notes":["A","C#","E"],"duration":4},{"notes":["B","D","F#"],"duration":4},{"notes":["C#","F#","A"],"duration":4},{"notes":["G","B","D"],"duration":4},{"notes":["D","F#","A"],"duration":4},{"notes":["C#","E","A"],"duration":8},
-{"notes":["G","B","D"],"duration":4},{"notes":["A","C#","E"],"duration":4},{"notes":["D","F#","A"],"duration":8},{"notes":["G","B","D"],"duration":4},{"notes":["A","C#","E"],"duration":4},{"notes":["D","F#","A"],"duration":8},
-{"notes":["G","B","D"],"duration":4},{"notes":["A","C#","E"],"duration":4},{"notes":["D","F#","A"],"duration":2},{"notes":["C","E","G"],"duration":2},{"notes":["B","D","F#"],"duration":4},{"notes":["G","D","B"],"duration":4},{"notes":["C#","E","A"],"duration":4},
-{"notes":["D","F#","A"],"duration":2},{"notes":["A","C#","E"],"duration":2},{"notes":["B","D","F#"],"duration":2},{"notes":["A","C#","E"],"duration":2},{"notes":["D","F#","A"],"duration":2},{"notes":["A","C#","E"],"duration":2},{"notes":["B","D","F#"],"duration":2},{"notes":["A","C#","E"],"duration":2}]
 
 const theme = createTheme({
   components: {
@@ -102,23 +75,13 @@ function App() {
   const [synth, setSynth] = useState<Tone.PolySynth<Tone.Synth<Tone.SynthOptions>> | null>(null);
   const [userSynth, setUserSynth] = useState<Tone.Synth<Tone.SynthOptions> | null>(null);
   const [disabled, setDisabled] = useState(true);
-  const [chords, setChords] = useState<ChordInfo[]>(defaultChords);
+  const [chords, setChords] = useState<ChordInfo[]>(Examples[0]["chords"]);
   const [volume, setVolume] = useState(3);
   const [playingChordIndex, setPlayingChordIndex] = useState(null);
 
   const createSynth = () => {
-    const options =  {
-      oscillator : {
-        type : "sawtooth4"
-      },
-      envelope : {
-        attack : 0.005,
-        decay : 0.1,
-        sustain : 0.3,
-        release : 1
-        }
-      }
-    const newSynth = new Tone.PolySynth(options).toDestination();
+    const newSynth = new Tone.PolySynth(Tone.AMSynth).toDestination();
+
     const actualVolume = convertVolume(volume) - 5;
     newSynth.volume.value = actualVolume;
     return newSynth

@@ -1,10 +1,15 @@
 import { useState } from 'react';
 import Box from '@mui/system/Box';
 import Button from '@mui/material/Button';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
 import Modal from '@mui/material/Modal';
+import Select from '@mui/material/Select';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 
+import Examples from '../../songs'
 import ChordInfo from '../../types/ChordInfo';
 
 type ChangeSongProps = {
@@ -34,6 +39,13 @@ const ChangeSong = ({chords, setChords}: ChangeSongProps) => {
         setErrors(error.message);
       }
     }
+  }
+
+  const selectChords = (selectedChordsString: string) => {
+    const selectedChords: ChordInfo[] = JSON.parse(selectedChordsString);
+    setChords(selectedChords);
+    setUserInput(JSON.stringify(selectedChords));
+    handleClose();
   }
 
   const handleOpen = () => {
@@ -70,12 +82,24 @@ const ChangeSong = ({chords, setChords}: ChangeSongProps) => {
     <form onSubmit={(e) => handleSubmitTune(e)}>
       <Stack>
         <Box>{errors}</Box>
-        <Button type="submit" variant="contained">Click to enter tune</Button>
+        <FormControl fullWidth>
+          <InputLabel id="simple-song-select-label">Saved Song</InputLabel>
+          <Select
+            labelId="simple-song-select-label"
+            id="song-select"
+            label="Saved Song"
+            value={JSON.stringify(chords)}
+            onChange={e => selectChords((e.target as HTMLInputElement).value)}
+          >
+            {Examples.map((option, index) => <MenuItem key={index} value={JSON.stringify(option.chords)}>{option["name"]}</MenuItem>)}
+          </Select>
+        </FormControl>
+        <Button type="submit" variant="contained">Use Tune Below</Button>
         <TextField
           multiline
           sx={inputStyle}
           rows={10}
-          defaultValue={JSON.stringify(chords)}
+          value={JSON.stringify(chords)}
           onInput={populateUserInput}
           />
       <Button sx={{color: 'white'}} onClick={handleClose}>Close</Button>
