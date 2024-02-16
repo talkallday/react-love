@@ -22,6 +22,8 @@ const ChangeSong = ({chords, setChords}: ChangeSongProps) => {
   const [userInput, setUserInput] = useState("");
   const [errors, setErrors] = useState("");
 
+  const songIsSaved = Examples.map(e => JSON.stringify(e.chords)).includes(JSON.stringify(chords));
+
   const populateUserInput = (e: React.FormEvent<HTMLDivElement>) => {
     setUserInput((e.target as HTMLTextAreaElement).value);
   }
@@ -41,11 +43,13 @@ const ChangeSong = ({chords, setChords}: ChangeSongProps) => {
     }
   }
 
-  const selectChords = (selectedChordsString: string) => {
-    const selectedChords: ChordInfo[] = JSON.parse(selectedChordsString);
-    setChords(selectedChords);
-    setUserInput(JSON.stringify(selectedChords));
-    handleClose();
+  const selectChords = (selectedChordsString?: string) => {
+    if (selectedChordsString !== undefined) {
+        const selectedChords: ChordInfo[] = JSON.parse(selectedChordsString);
+        setChords(selectedChords);
+        setUserInput(JSON.stringify(selectedChords));
+        handleClose();
+    }
   }
 
   const handleOpen = () => {
@@ -63,6 +67,10 @@ const ChangeSong = ({chords, setChords}: ChangeSongProps) => {
       fontFamily: 'monospace',
     }
   }
+
+  const examples = Examples.map((option, index) => <MenuItem key={index+1} value={JSON.stringify(option.chords)}>{option["name"]}</MenuItem>)
+
+  examples.push(<MenuItem key={0} value={undefined}>Custom</MenuItem>);
 
   return (
   <>
@@ -88,10 +96,10 @@ const ChangeSong = ({chords, setChords}: ChangeSongProps) => {
             labelId="simple-song-select-label"
             id="song-select"
             label="Saved Song"
-            value={JSON.stringify(chords)}
+            value={songIsSaved ? JSON.stringify(chords) : undefined}
             onChange={e => selectChords((e.target as HTMLInputElement).value)}
-          >
-            {Examples.map((option, index) => <MenuItem key={index} value={JSON.stringify(option.chords)}>{option["name"]}</MenuItem>)}
+            >
+            {examples}
           </Select>
         </FormControl>
         <Button type="submit" variant="contained">Use Tune Below</Button>
@@ -99,7 +107,7 @@ const ChangeSong = ({chords, setChords}: ChangeSongProps) => {
           multiline
           sx={inputStyle}
           rows={10}
-          value={JSON.stringify(chords)}
+          defaultValue={JSON.stringify(chords)}
           onInput={populateUserInput}
           />
       <Button sx={{color: 'white'}} onClick={handleClose}>Close</Button>
