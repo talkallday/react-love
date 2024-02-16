@@ -12,7 +12,7 @@ type StatusProps = {
 const LoopStatus = ({totalLoops, setTotalLoops, playing, loop}: StatusProps) => {
   return (
     <Box
-      sx={{ maxWidth: '8rem' }}
+      sx={{ maxWidth: '8rem', fontSize: "0.7rem" }}
       className="cell"
       id="play-status"
     >

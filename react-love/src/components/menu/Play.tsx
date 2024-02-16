@@ -115,6 +115,7 @@ const Play = ({
     <Button
       sx={{
         backgroundColor: disabled ? 'blue' : playing ? 'red' : 'green',
+        padding: '1rem',
         '&.MuiButton-root:hover': {
           backgroundColor: disabled ? 'blue' : playing ? 'red' : 'green',
         },
